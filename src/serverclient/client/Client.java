@@ -53,6 +53,21 @@ public class Client extends UnicastRemoteObject  implements ClientInterface {
             srv.unreg(cl);
     }
 
+    public Library edit(Library lib,String author, String name, String genre, int date, int count){
+        Library temp = null;
+        for(int i = 0; i < books.size();i++){
+            if(books.get(i).equals(lib)){
+                temp = books.get(i);
+                break;
+            }
+        }
+        temp.setAuthor(author);
+        temp.setName(name);
+        temp.setGenre(genre);
+        temp.setDate(date);
+        temp.setCount(count);
+        return temp;
+    }
 
     public ArrayList<Library> getAllData(){
         try {
