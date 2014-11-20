@@ -34,7 +34,7 @@ import serverclient.client.Client;
 
 public class Controller implements Initializable {
 
-   // private Library lib ;
+
 
     @FXML
     TableView<Library> table;
@@ -53,9 +53,9 @@ public class Controller implements Initializable {
     @FXML
     private Button deleteBooksButton;
     @FXML
-    private Button refreshButton;
-
+    private Button editButton;
     private Button addOk = new Button("Ok");
+    private Button editOk = new Button("Ok");
 
     private TextField authorField = new TextField();
     private Label authorLabel = new Label("Author");
@@ -77,31 +77,16 @@ public class Controller implements Initializable {
     private ObservableList<Library> obs;
 
 
-    /*private ArrayList<Library> books;
-
-
-    Registry registry;
-    ServerClient srv;
-
-    private void connect() throws Exception{
-        registry = LocateRegistry.getRegistry("localhost", 1099);
-        srv = (ServerClient) registry.lookup("LibraryServer");
-        //srv.reg(srv.);
-
-    }*/
-
 
     private void setLayout(Node node,double x, double y){
         node.setLayoutX(x);
         node.setLayoutY(y);
     }
 
-    /*private ObservableList<Library> setData(Library lib){
-        ObservableList<Library> data = FXCollections.observableArrayList(lib);
-        return data;
-    }*/
+
 
     private void sumbitAction(){
+
         addOk.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -152,63 +137,71 @@ public class Controller implements Initializable {
         nameField.clear();
     }
 
-    public void refreshAction(){
-        refreshButton.setOnAction(new EventHandler<ActionEvent>() {
+    public void editAction(){
+        editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                try {
-                    client.update();
-                    updateTable();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+            public void handle(ActionEvent actionEvent) {
+                Stage secondStage = createStage(editOk);
+                String author = authorField.getText();
+                String name = nameField.getText();
+                String genre = genreField.getText();
+                int date = Integer.parseInt(dateField.getText());
+                int count = Integer.parseInt(countField.getText());
+
+                secondStage.show();
 
             }
         });
+    }
+
+    Stage createStage(Button button){
+        AnchorPane pane = new AnchorPane();
+        Scene secondScene = new Scene(pane,400,280);
+        Stage secondStage = new Stage();
+
+        setLayout(button,50,250);
+        button.setPrefSize(50,20);
+
+        setLayout(authorField,secondScene.getHeight()/2,50);
+        setLayout(authorLabel,100,50);
+        authorField.setPromptText("Author");
+
+
+        setLayout(nameField, secondScene.getHeight() / 2, 80);
+        setLayout(nameLabel,100,80);
+        nameField.setPromptText("Name");
+
+
+        setLayout(genreField, secondScene.getHeight() / 2, 110);
+        setLayout(genreLabel,100,110);
+        genreField.setPromptText("Genre");
+
+
+        setLayout(dateField, secondScene.getHeight() / 2, 140);
+        setLayout(dateLabel,100,140);
+        dateField.setPromptText("Date");
+
+
+        setLayout(countField, secondScene.getHeight() / 2, 170);
+        setLayout(countLabel, 100, 170);
+        countField.setPromptText("Count");
+
+
+        pane.getChildren().addAll(button,authorField,nameField,genreField,dateField,countField,
+                authorLabel,nameLabel,genreLabel,dateLabel,countLabel);
+        secondStage.setTitle("Add book");
+        secondStage.setScene(secondScene);
+        secondStage.setX(100);
+        secondStage.setY(150);
+        return secondStage;
     }
 
     public void addAction(){
         addBooksButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                AnchorPane pane = new AnchorPane();
-                Scene secondScene = new Scene(pane,400,280);
-                Stage secondStage = new Stage();
 
-                setLayout(addOk,50,250);
-                addOk.setPrefSize(50,20);
-
-                setLayout(authorField,secondScene.getHeight()/2,50);
-                setLayout(authorLabel,100,50);
-                authorField.setPromptText("Author");
-
-
-                setLayout(nameField, secondScene.getHeight() / 2, 80);
-                setLayout(nameLabel,100,80);
-                nameField.setPromptText("Name");
-
-
-                setLayout(genreField, secondScene.getHeight() / 2, 110);
-                setLayout(genreLabel,100,110);
-                genreField.setPromptText("Genre");
-
-
-                setLayout(dateField, secondScene.getHeight() / 2, 140);
-                setLayout(dateLabel,100,140);
-                dateField.setPromptText("Date");
-
-
-                setLayout(countField, secondScene.getHeight() / 2, 170);
-                setLayout(countLabel, 100, 170);
-                countField.setPromptText("Count");
-
-
-                pane.getChildren().addAll(addOk,authorField,nameField,genreField,dateField,countField,
-                                          authorLabel,nameLabel,genreLabel,dateLabel,countLabel);
-                secondStage.setTitle("Add book");
-                secondStage.setScene(secondScene);
-                secondStage.setX(100);
-                secondStage.setY(150);
+                Stage secondStage = createStage(addOk);
                 sumbitAction();
 
                 try {

@@ -77,7 +77,7 @@ public class WriteXML {
             StreamResult result = new StreamResult(new File("library.xml"));
 
             transformer.transform(source,result);
-            System.out.print("File saved");
+           // System.out.print("File saved");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();

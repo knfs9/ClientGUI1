@@ -28,7 +28,7 @@
                </VBox.margin>
             </Button>
             <Button fx:id="deleteBooksButton" mnemonicParsing="false" onAction="#deleteAction" prefHeight="20.0" prefWidth="77.0" text="Delete book" />
-            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshAction" prefHeight="22.0" prefWidth="76.0" text="Refresh" />
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editAction" prefHeight="22.0" prefWidth="76.0" text="Edit" />
          </children>
          <padding>
             <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />

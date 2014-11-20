@@ -26,14 +26,18 @@ public class Client extends UnicastRemoteObject  implements ClientInterface {
     private Controller controller;
     private Registry registry;
     private ServerClient srv;
+    private boolean ThisIsMe = false;
+
     private ObservableList<Library> books = FXCollections.observableArrayList();
+
 
 
     public Client(Controller controller) throws RemoteException {
         super();
         this.controller = controller;
-
     }
+
+
 
     public void connect(Client cl) throws Exception{
         try {
@@ -78,6 +82,10 @@ public class Client extends UnicastRemoteObject  implements ClientInterface {
         }
     }
 
+    public boolean thisIsMe() throws  RemoteException{
+        return ThisIsMe;
+    }
+
     public ObservableList<Library> setData(Library lib){
         ObservableList<Library> data = FXCollections.observableArrayList(lib);
         return data;
@@ -95,12 +103,15 @@ public class Client extends UnicastRemoteObject  implements ClientInterface {
         }
     }
     public void addData(ArrayList<Library> book){
+        ThisIsMe = true;
         try {
             books.addAll(book);
             srv.add(book);
         }catch (Exception e){
             e.printStackTrace();
         }
+        ThisIsMe = false;
+
     }
 
     public boolean update() throws RemoteException{

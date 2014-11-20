@@ -51,13 +51,13 @@ public class ReadXML  {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
 
-            System.out.println("Book:" + doc.getDocumentElement().getNodeName());
+            //System.out.println("Book:" + doc.getDocumentElement().getNodeName());
             NodeList list = doc.getElementsByTagName("Book");
             Library Book = null;
             for(int i = 0; i < list.getLength(); i++)
             {
                 Node node = list.item(i);
-                System.out.println("Element" + node.getNodeName());
+                //System.out.println("Element" + node.getNodeName());
                 if(node.getNodeType() == Node.ELEMENT_NODE)
                 {
                     DeferredElementImpl el = (DeferredElementImpl) node;
@@ -75,7 +75,7 @@ public class ReadXML  {
                 book.add(Book);
             }
 
-            print();
+           // print();
         }catch (Exception e){
             e.printStackTrace();
         }

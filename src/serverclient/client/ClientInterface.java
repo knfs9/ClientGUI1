@@ -8,4 +8,5 @@ import java.rmi.RemoteException;
  */
 public interface ClientInterface extends Remote {
     public boolean update() throws RemoteException;
+    public boolean thisIsMe() throws RemoteException;
 }

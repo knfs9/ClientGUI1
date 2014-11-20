@@ -45,11 +45,14 @@ public class Server implements ServerClient {
         writeXML = new WriteXML(data);
         try {
             for(ClientInterface c:clients){
-                c.update();
+                if(!c.thisIsMe()) {
+                    c.update();
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
     public void ReadData(){
@@ -65,8 +68,10 @@ public class Server implements ServerClient {
         ArrayList<Library> data = new ArrayList<Library>();
         data.add(book);
         writeXML = new WriteXML(data);
+        System.out.println(this.hashCode());
         try {
             for(ClientInterface c:clients){
+                System.out.println(c.hashCode());
                 c.update();
             }
         }catch (Exception e){

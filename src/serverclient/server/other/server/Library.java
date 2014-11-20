@@ -46,4 +46,25 @@ public class Library implements Serializable {
     public int getCount() { return this.count; };
     public int getId() { return  this.id; }
     public int getDate() { return  this.date; }
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null){
+            return false;
+        }
+        if(obj == this){
+            return true;
+        }
+        if(getClass() != obj.getClass()){
+            return false;
+        }
+
+        Library lb = (Library)obj;
+
+        return (this.author == lb.getAuthor() &&
+                this.name   == lb.getName()   &&
+                this.genre  == lb.getGenre()  &&
+                this.date   == lb.getDate()   &&
+                this.count  == lb.getCount());
+
+    }
 }
